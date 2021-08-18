@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">ModernHorticulture</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="skip">Skip</string>
+    <string name="next">next</string>
+    <string name="description_1">This companion will help you get all the information you need about growing horticultural crops.</string>
+    <string name="title_1">Get information!</string>
+    <string name="finish">finish</string>
+    <string name="title_2">Buy and sell produce</string>
+    <string name="description_2">Through this app, farmers will be linked to the market meaning they will put their products for sale so that consumers can purchase!</string>
 </resources>
