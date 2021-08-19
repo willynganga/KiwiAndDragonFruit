@@ -1,10 +1,8 @@
-package ke.co.willynganga.modernhorticulture.onboarding.screens
+package ke.co.willynganga.modernhorticulture.ui.fragments.onboarding.screens
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.viewbinding.library.fragment.viewBinding
 import androidx.viewpager2.widget.ViewPager2
 import ke.co.willynganga.modernhorticulture.R
