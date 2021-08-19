@@ -1,11 +1,10 @@
-package ke.co.willynganga.modernhorticulture.onboarding.screens
+package ke.co.willynganga.modernhorticulture.ui.fragments.onboarding.screens
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.viewbinding.library.fragment.viewBinding
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import ke.co.willynganga.modernhorticulture.R
 import ke.co.willynganga.modernhorticulture.databinding.FragmentThirdScreenBinding
 
@@ -15,6 +14,12 @@ class ThirdScreen : Fragment(R.layout.fragment_third_screen) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.loginFarmer.setOnClickListener {
+            findNavController().navigate(
+                R.id.action_viewPagerFragment_to_farmer_login_flow
+            )
+        }
 
     }
 
