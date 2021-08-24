@@ -79,7 +79,7 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
                 is Resource.Error -> {
                     //hide progress bar
                     binding.progressCircular.visibility = View.GONE
-                    resource.data?.let { msg ->
+                    resource.message?.let { msg ->
                         Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
                     }
 
