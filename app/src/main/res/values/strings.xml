@@ -23,4 +23,7 @@
     <string name="dragon_fruit_desc">Dragon fruit grows on the Hylocereus cactus, also known as the Honolulu queen, whose flowers only open at night.</string>
     <string name="kiwi_fruit_desc">Kiwi and other fruits provide a range of health benefits due to their nutritional contents. Kiwis are a good source of vitamin C, antiox...</string>
     <string name="sell_fruits_desc">Put your product to market. Let buyers contact you.</string>
+    <string name="continue_as_buyer">Continue as Buyer</string>
+    <string name="continue_as_farmer">Continue as Farmer</string>
+    <string name="lets_get_started">let\'s get started!</string>
 </resources>
