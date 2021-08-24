@@ -2,18 +2,18 @@ package ke.co.willynganga.modernhorticulture.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
-import ke.co.willynganga.modernhorticulture.di.firebase.Authenticator
 import ke.co.willynganga.modernhorticulture.util.Event
 import ke.co.willynganga.modernhorticulture.util.Resource
 import javax.inject.Inject
 
 @HiltViewModel
 class AuthViewModel @Inject constructor(
-    private val authenticator: Authenticator
+    private val auth: FirebaseAuth
 ) : ViewModel() {
 
-    val currentUser = authenticator.getCurrentUser()
+    val currentUser = auth.currentUser
 
     val signInResponse: MutableLiveData<Event<Resource<String>>> = MutableLiveData()
     val signUpResponse: MutableLiveData<Event<Resource<String>>> = MutableLiveData()
@@ -21,37 +21,43 @@ class AuthViewModel @Inject constructor(
 
     fun signUpWithEmailAndPassword(email: String, password: String) {
         signUpResponse.postValue(Event(Resource.Loading()))
-        authenticator.signUpWithEmailAndPassword(email, password).let {
-            if (it.startsWith("Account")) {
-                signUpResponse.postValue(Event(Resource.Success(it)))
-            } else {
-                signUpResponse.postValue(Event(Resource.Error(it)))
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    signUpResponse.postValue(Event(Resource.Success("Account created successfully!")))
+                }
             }
-        }
+            .addOnFailureListener {
+                signUpResponse.postValue(Event(Resource.Error(it.message)))
+            }
     }
 
-    fun signInWithEmailAndPassword(email: String, password: String)  {
+    fun signInWithEmailAndPassword(email: String, password: String) {
         signInResponse.postValue(Event(Resource.Loading()))
-        authenticator.signInWithEmailAndPassword(email, password).let {
-            if (it.contains("successfully")) {
-                signInResponse.postValue(Event(Resource.Success(it)))
-            } else {
-                signInResponse.postValue(Event(Resource.Error(it)))
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    signInResponse.postValue(Event(Resource.Success("Signed up successfully!")))
+                }
             }
-        }
+            .addOnFailureListener {
+                signInResponse.postValue(Event(Resource.Error(it.message)))
+            }
     }
 
     fun sendPasswordResetEmail(email: String) {
         resetPasswordResponse.postValue(Event(Resource.Loading()))
-        authenticator.sendResetPasswordEmail(email).let {
-            if (it.startsWith("Please")) {
-                resetPasswordResponse.postValue(Event(Resource.Success(it)))
-            } else {
-                resetPasswordResponse.postValue(Event(Resource.Error(it)))
+        auth.sendPasswordResetEmail(email)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    resetPasswordResponse.postValue(Event(Resource.Success("Signed in successfully!")))
+                }
             }
-        }
+            .addOnFailureListener { e ->
+                resetPasswordResponse.postValue(Event(Resource.Success(e.message.toString())))
+            }
     }
 
-    fun logOut() = authenticator.logOut()
+    fun logOut() = auth.signOut()
 
 }
