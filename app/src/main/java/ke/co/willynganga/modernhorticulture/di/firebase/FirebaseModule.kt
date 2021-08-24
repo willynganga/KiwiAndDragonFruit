@@ -2,12 +2,14 @@ package ke.co.willynganga.modernhorticulture.di.firebase
 
 
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import ke.co.willynganga.modernhorticulture.repository.FirebaseAuthenticatorRepository
 import javax.inject.Singleton
 
 @Module
@@ -22,16 +24,14 @@ object FirebaseModule {
 
     @Singleton
     @Provides
-    fun provideFirebaseFirestore(): FirebaseFirestore {
-        return FirebaseFirestore.getInstance()
+    fun provideCurrentUser(auth: FirebaseAuth): FirebaseUser {
+        return auth.currentUser!!
     }
 
     @Singleton
     @Provides
-    fun provideFirebaseAuthenticator(
-        auth: FirebaseAuth
-    ): Authenticator {
-        return FirebaseAuthenticatorRepository(auth)
+    fun provideFirebaseFirestore(): FirebaseFirestore {
+        return Firebase.firestore
     }
 
 }
