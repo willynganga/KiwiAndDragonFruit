@@ -1,10 +1,11 @@
 package ke.co.willynganga.modernhorticulture.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import ke.co.willynganga.modernhorticulture.R
+import androidx.appcompat.app.AppCompatActivity
+import dagger.hilt.android.AndroidEntryPoint
 import ke.co.willynganga.modernhorticulture.databinding.ActivityMainBinding
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding

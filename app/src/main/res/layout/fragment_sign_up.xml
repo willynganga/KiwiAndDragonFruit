@@ -116,6 +116,17 @@
             app:layout_constraintStart_toStartOf="@+id/repeat_password_TIL"
             app:layout_constraintTop_toBottomOf="@+id/repeat_password_TIL" />
 
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/progress_circular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:visibility="gone"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/sign_up_btn"
+            app:layout_constraintStart_toStartOf="@+id/sign_up_btn"
+            app:layout_constraintTop_toBottomOf="@+id/sign_up_btn" />
+
         <LinearLayout
             android:id="@+id/container"
             android:layout_width="0dp"
@@ -126,8 +137,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/sign_up_btn"
             app:layout_constraintStart_toStartOf="@+id/sign_up_btn"
-            app:layout_constraintTop_toBottomOf="@+id/sign_up_btn"
-            app:layout_constraintVertical_bias="0.14999998">
+            app:layout_constraintTop_toBottomOf="@+id/progress_circular">
 
             <TextView
                 android:layout_width="0dp"

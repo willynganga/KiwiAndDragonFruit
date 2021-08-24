@@ -27,10 +27,19 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="-70dp"
             android:padding="10dp"
-            android:text="Let's grow together"
+            android:text="Let's grow together."
             android:textColor="@color/white"
             android:textSize="28sp"
             android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/greetUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:textSize="24sp"
+            android:textColor="@color/white"
+            android:layout_marginTop="-90dp"/>
 
     </LinearLayout>
 

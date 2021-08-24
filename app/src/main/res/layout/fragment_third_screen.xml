@@ -25,7 +25,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="let's get started!"
+        android:text="@string/lets_get_started"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textSize="28sp"
@@ -40,7 +40,7 @@
         android:layout_width="0dp"
         android:layout_height="56dp"
         android:layout_marginTop="32dp"
-        android:text="Login as Farmer"
+        android:text="@string/continue_as_farmer"
         app:layout_constraintEnd_toEndOf="@+id/title"
         app:layout_constraintStart_toStartOf="@+id/title"
         app:layout_constraintTop_toBottomOf="@+id/title" />
@@ -50,7 +50,7 @@
         android:layout_width="0dp"
         android:layout_height="56dp"
         android:layout_marginTop="32dp"
-        android:text="Login as Buyer"
+        android:text="@string/continue_as_buyer"
         app:layout_constraintEnd_toEndOf="@+id/login_farmer"
         app:layout_constraintStart_toStartOf="@+id/login_farmer"
         app:layout_constraintTop_toBottomOf="@+id/login_farmer" />
