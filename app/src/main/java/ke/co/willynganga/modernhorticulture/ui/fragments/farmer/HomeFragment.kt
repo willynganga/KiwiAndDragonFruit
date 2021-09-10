@@ -5,9 +5,12 @@ import android.view.View
 import android.viewbinding.library.fragment.viewBinding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import ke.co.willynganga.modernhorticulture.R
 import ke.co.willynganga.modernhorticulture.databinding.FragmentHomeBinding
+import ke.co.willynganga.modernhorticulture.util.Constants
+import ke.co.willynganga.modernhorticulture.util.Constants.Companion.KIWI_FRUIT_NAME
 import ke.co.willynganga.modernhorticulture.viewmodel.FirestoreViewModel
 
 @AndroidEntryPoint
@@ -27,7 +30,22 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         super.onViewCreated(view, savedInstanceState)
 
         setupObservers()
+        setupOnClickListeners()
 
+    }
+
+    private fun setupOnClickListeners() {
+        binding.kiwiFruit.learnMore.setOnClickListener {
+            findNavController().navigate(
+                HomeFragmentDirections.actionHomeFragmentToFruitDescriptionFragment(KIWI_FRUIT_NAME)
+            )
+        }
+
+        binding.dragonFruit.learnMore.setOnClickListener {
+            findNavController().navigate(
+                HomeFragmentDirections.actionHomeFragmentToFruitDescriptionFragment(Constants.DRAGON_FRUIT_NAME)
+            )
+        }
     }
 
     private fun setupObservers() {
