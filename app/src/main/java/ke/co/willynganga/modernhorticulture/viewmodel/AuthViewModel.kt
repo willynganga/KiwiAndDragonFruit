@@ -37,7 +37,7 @@ class AuthViewModel @Inject constructor(
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    signInResponse.postValue(Event(Resource.Success("Signed up successfully!")))
+                    signInResponse.postValue(Event(Resource.Success("Signed in successfully!")))
                 }
             }
             .addOnFailureListener {
@@ -50,7 +50,7 @@ class AuthViewModel @Inject constructor(
         auth.sendPasswordResetEmail(email)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    resetPasswordResponse.postValue(Event(Resource.Success("Signed in successfully!")))
+                    resetPasswordResponse.postValue(Event(Resource.Success("Check your email!")))
                 }
             }
             .addOnFailureListener { e ->

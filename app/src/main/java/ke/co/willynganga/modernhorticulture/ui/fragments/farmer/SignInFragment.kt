@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 import ke.co.willynganga.modernhorticulture.R
 import ke.co.willynganga.modernhorticulture.databinding.FragmentSignInBinding
@@ -20,6 +21,16 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
     private val binding: FragmentSignInBinding by viewBinding()
 
     private val authViewModel: AuthViewModel by viewModels()
+
+    override fun onStart() {
+        super.onStart()
+
+        if (FirebaseAuth.getInstance().currentUser != null) {
+            findNavController().navigate(
+                SignInFragmentDirections.actionSignInFragmentToHomeFragment()
+            )
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

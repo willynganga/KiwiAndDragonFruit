@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "718977684413",
+    "firebase_url": "https://bars-d3a06.firebaseio.com",
+    "project_id": "bars-d3a06",
+    "storage_bucket": "bars-d3a06.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:718977684413:android:b735dffe4272b498bdf8d4",
+        "android_client_info": {
+          "package_name": "ke.co.willynganga.a3bars"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "718977684413-3qjg92liqnfmde1de2pi38t88t74i1g0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYR-N6u_eGyooqlOE6fHJs4PqcgbIiAG8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "718977684413-3qjg92liqnfmde1de2pi38t88t74i1g0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:718977684413:android:ce432afcb8b49fa1bdf8d4",
+        "android_client_info": {
+          "package_name": "ke.co.willynganga.modernhorticulture"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "718977684413-3qjg92liqnfmde1de2pi38t88t74i1g0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYR-N6u_eGyooqlOE6fHJs4PqcgbIiAG8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "718977684413-3qjg92liqnfmde1de2pi38t88t74i1g0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

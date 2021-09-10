@@ -26,4 +26,9 @@
     <string name="continue_as_buyer">Continue as Buyer</string>
     <string name="continue_as_farmer">Continue as Farmer</string>
     <string name="lets_get_started">let\'s get started!</string>
+    <string name="demo_text">Dragon fruit, also known as pitahaya or strawberry pear, is a tropical fruit known for its vibrant red skin and sweet, seed-speckled pulp.</string>
+    <string name="ecological_requirements">Ecological Requirements</string>
+    <string name="soil_mngt">Soil Management</string>
+    <string name="how_to_plant">How to Plant</string>
+    <string name="dcm">Disease Control Measures</string>
 </resources>
