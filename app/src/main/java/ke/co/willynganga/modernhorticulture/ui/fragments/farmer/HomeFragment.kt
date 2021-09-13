@@ -46,6 +46,16 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 HomeFragmentDirections.actionHomeFragmentToFruitDescriptionFragment(Constants.DRAGON_FRUIT_NAME)
             )
         }
+
+        binding.sellFruitsCard.sellFruits.setOnClickListener {
+            val username =
+                binding.greetUser.text.toString()
+                    .substring(6)
+                    .replace("!", "")
+            findNavController().navigate(
+                HomeFragmentDirections.actionHomeFragmentToSellFruitFragment(username)
+            )
+        }
     }
 
     private fun setupObservers() {
