@@ -5,6 +5,7 @@ class Constants {
     companion object {
         const val USERS_COLLECTION = "users"
         const val FRUITS_COLLECTION = "fruits"
+        const val SELLING_FRUITS_COLLECTION = "fruits_to_sell"
 
         const val DESCRIPTION_FIELD = "Description"
         const val DISEASE_CONTROL_MEASURES_FIELD = "Disease Control Measures"
