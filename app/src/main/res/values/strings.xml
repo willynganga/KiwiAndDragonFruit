@@ -31,4 +31,12 @@
     <string name="soil_mngt">Soil Management</string>
     <string name="how_to_plant">How to Plant</string>
     <string name="dcm">Disease Control Measures</string>
+    <string name="sell_your_produce_with_us">Sell your produce with us!</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="type_of_fruit">Type of fruit</string>
+    <string name="quantity_kg">Quantity (Kg)</string>
+    <string name="selling_price">Selling Price</string>
+    <string name="location">Location</string>
+    <string name="choose_images">Choose Images</string>
+    <string name="advertise">Advertise</string>
 </resources>
