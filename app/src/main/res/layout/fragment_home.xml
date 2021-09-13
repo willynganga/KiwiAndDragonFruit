@@ -36,21 +36,21 @@
             android:id="@+id/greetUser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="-90dp"
             android:padding="10dp"
-            android:textSize="24sp"
             android:textColor="@color/white"
-            android:layout_marginTop="-90dp"/>
+            android:textSize="24sp" />
 
     </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:fillViewport="true"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:fillViewport="true"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
         <LinearLayout
@@ -62,31 +62,35 @@
                 android:id="@+id/category_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:padding="10dp"
                 android:text="Category"
                 android:textColor="@color/green_200"
                 android:textSize="24sp"
-                android:layout_marginStart="16dp"
                 android:textStyle="bold" />
 
-            <include android:id="@+id/dragonFruit"
+            <include
+                android:id="@+id/dragonFruit"
                 layout="@layout/dragon_fruit_card" />
 
-            <include android:id="@+id/kiwiFruit"
+            <include
+                android:id="@+id/kiwiFruit"
                 layout="@layout/kiwi_fruit_card" />
 
             <TextView
                 android:id="@+id/sell_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:padding="10dp"
                 android:text="Sell"
                 android:textColor="@color/green_200"
                 android:textSize="24sp"
-                android:layout_marginStart="16dp"
                 android:textStyle="bold" />
 
-            <include layout="@layout/sell_fruits_card" />
+            <include
+                android:id="@+id/sell_fruits_card"
+                layout="@layout/sell_fruits_card" />
 
 
         </LinearLayout>
