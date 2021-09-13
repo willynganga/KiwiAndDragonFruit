@@ -1,10 +1,12 @@
 package ke.co.willynganga.modernhorticulture.viewmodel
 
+import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.StorageReference
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ke.co.willynganga.modernhorticulture.model.FruitDescription
 import ke.co.willynganga.modernhorticulture.util.Constants.Companion.DESCRIPTION_FIELD
@@ -13,6 +15,7 @@ import ke.co.willynganga.modernhorticulture.util.Constants.Companion.ECOLOGICAL_
 import ke.co.willynganga.modernhorticulture.util.Constants.Companion.FRUITS_COLLECTION
 import ke.co.willynganga.modernhorticulture.util.Constants.Companion.HOW_TO_PLANT_FIELD
 import ke.co.willynganga.modernhorticulture.util.Constants.Companion.IMG_FIELD
+import ke.co.willynganga.modernhorticulture.util.Constants.Companion.SELLING_FRUITS_COLLECTION
 import ke.co.willynganga.modernhorticulture.util.Constants.Companion.SOIL_MANAGEMENT_FIELD
 import ke.co.willynganga.modernhorticulture.util.Constants.Companion.USERS_COLLECTION
 import javax.inject.Inject
@@ -20,10 +23,14 @@ import javax.inject.Inject
 @HiltViewModel
 class FirestoreViewModel @Inject constructor(
     currentUser: FirebaseUser,
-    private val db: FirebaseFirestore
+    private val db: FirebaseFirestore,
+    private val storageRef: StorageReference
 ) : ViewModel() {
 
     val currentUser = currentUser
+
+    val imageDownloadUrl: MutableLiveData<String> = MutableLiveData()
+    val sellingDetailsUpload: MutableLiveData<String> = MutableLiveData()
 
     val username: MutableLiveData<String> = MutableLiveData()
     val fruitDescription: MutableLiveData<FruitDescription> = MutableLiveData()
@@ -62,6 +69,54 @@ class FirestoreViewModel @Inject constructor(
                         description = snapshot.getString(DESCRIPTION_FIELD)!!
                     )
                 )
+            }
+    }
+
+    fun uploadImage(uri: Uri) {
+        val fruitRef = storageRef.child("images/${uri.lastPathSegment}")
+
+        val uploadTask = fruitRef.putFile(uri)
+
+        uploadTask.addOnCompleteListener {
+            if (it.isSuccessful) {
+
+                fruitRef.downloadUrl.addOnSuccessListener { downloadUri ->
+                    imageDownloadUrl.postValue(downloadUri.toString())
+                    Log.d("DownloadUri", "uploadImage: $downloadUri")
+                }
+
+            }
+        }
+    }
+
+    fun uploadSellingFruitDetails(
+        username: String,
+        phoneNumber: String,
+        typeOfFruit: String,
+        quantity: String,
+        sellingPrice: String,
+        location: String,
+        imagesUrlList: MutableList<String>
+    ) {
+        val fruitSellingDetails = hashMapOf(
+            "username" to username,
+            "phoneNumber" to phoneNumber,
+            "typeOfFruit" to typeOfFruit,
+            "quantity" to quantity,
+            "sellingPrice" to sellingPrice,
+            "location" to location,
+            "imagesUrlList" to imagesUrlList
+        )
+
+        db.collection(SELLING_FRUITS_COLLECTION).document()
+            .set(fruitSellingDetails)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    sellingDetailsUpload.postValue("Successfully uploaded!")
+                }
+            }
+            .addOnFailureListener {
+                sellingDetailsUpload.postValue(it.message)
             }
     }
 
