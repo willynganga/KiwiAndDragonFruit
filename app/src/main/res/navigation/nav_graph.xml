@@ -59,6 +59,9 @@
                 android:id="@+id/action_homeFragment_to_fruitDescriptionFragment"
                 app:destination="@id/fruitDescriptionFragment"
                 app:launchSingleTop="true" />
+            <action
+                android:id="@+id/action_homeFragment_to_sellFruitFragment"
+                app:destination="@id/sellFruitFragment" />
         </fragment>
         <fragment
             android:id="@+id/fruitDescriptionFragment"
@@ -72,6 +75,20 @@
                 app:popUpToInclusive="true" />
             <argument
                 android:name="fruit_name"
+                app:argType="string" />
+        </fragment>
+        <fragment
+            android:id="@+id/sellFruitFragment"
+            android:name="ke.co.willynganga.modernhorticulture.ui.fragments.farmer.SellFruitFragment"
+            android:label="fragment_sell_fruit"
+            tools:layout="@layout/fragment_sell_fruit" >
+            <action
+                android:id="@+id/action_sellFruitFragment_to_homeFragment"
+                app:destination="@id/homeFragment"
+                app:popUpTo="@id/sellFruitFragment"
+                app:popUpToInclusive="true" />
+            <argument
+                android:name="username"
                 app:argType="string" />
         </fragment>
     </navigation>
