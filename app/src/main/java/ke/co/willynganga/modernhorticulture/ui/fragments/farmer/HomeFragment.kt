@@ -1,8 +1,10 @@
 package ke.co.willynganga.modernhorticulture.ui.fragments.farmer
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.viewbinding.library.fragment.viewBinding
+import android.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -11,14 +13,18 @@ import ke.co.willynganga.modernhorticulture.R
 import ke.co.willynganga.modernhorticulture.databinding.FragmentHomeBinding
 import ke.co.willynganga.modernhorticulture.util.Constants
 import ke.co.willynganga.modernhorticulture.util.Constants.Companion.KIWI_FRUIT_NAME
+import ke.co.willynganga.modernhorticulture.util.extractUsername
+import ke.co.willynganga.modernhorticulture.viewmodel.AuthViewModel
 import ke.co.willynganga.modernhorticulture.viewmodel.FirestoreViewModel
 
 @AndroidEntryPoint
-class HomeFragment : Fragment(R.layout.fragment_home) {
+class HomeFragment : Fragment(R.layout.fragment_home), PopupMenu.OnMenuItemClickListener {
 
     private val binding: FragmentHomeBinding by viewBinding()
 
     private val fireStoreViewModel: FirestoreViewModel by viewModels()
+
+    private val authViewModel: AuthViewModel by viewModels()
 
     override fun onStart() {
         super.onStart()
@@ -49,12 +55,14 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         binding.sellFruitsCard.sellFruits.setOnClickListener {
             val username =
-                binding.greetUser.text.toString()
-                    .substring(6)
-                    .replace("!", "")
+                binding.greetUser.text.toString().extractUsername()
             findNavController().navigate(
                 HomeFragmentDirections.actionHomeFragmentToSellFruitFragment(username)
             )
+        }
+
+        binding.menu.setOnClickListener {
+            showPopup(it)
         }
     }
 
@@ -62,5 +70,36 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         fireStoreViewModel.username.observe(viewLifecycleOwner, { name ->
             binding.greetUser.text = "Hello $name!"
         })
+    }
+
+    private fun showPopup(view: View) {
+        PopupMenu(requireContext(), view).apply {
+            setOnMenuItemClickListener(this@HomeFragment)
+            inflate(R.menu.main_menu)
+            show()
+        }
+    }
+
+    override fun onMenuItemClick(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_go_to_uploads -> {
+                findNavController().navigate(
+                    HomeFragmentDirections.actionHomeFragmentToAdvertisementsFragment(
+                        binding.greetUser.text.toString().extractUsername()
+                    )
+                )
+                true
+            }
+
+            R.id.action_logout -> {
+                authViewModel.logOut()
+                findNavController().navigate(
+                    HomeFragmentDirections.actionHomeFragmentToSignInFragment()
+                )
+                true
+            }
+
+            else -> false
+        }
     }
 }
