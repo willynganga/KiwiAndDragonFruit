@@ -9,6 +9,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.StorageReference
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ke.co.willynganga.modernhorticulture.model.FruitDescription
+import ke.co.willynganga.modernhorticulture.model.GridItem
 import ke.co.willynganga.modernhorticulture.util.Constants.Companion.DESCRIPTION_FIELD
 import ke.co.willynganga.modernhorticulture.util.Constants.Companion.DISEASE_CONTROL_MEASURES_FIELD
 import ke.co.willynganga.modernhorticulture.util.Constants.Companion.ECOLOGICAL_REQUIREMENTS_FIELD
@@ -29,8 +30,8 @@ class FirestoreViewModel @Inject constructor(
 
     val currentUser = currentUser
 
-    val imageDownloadUrl: MutableLiveData<String> = MutableLiveData()
     val sellingDetailsUpload: MutableLiveData<String> = MutableLiveData()
+    val fruitDescriptionList: MutableLiveData<List<GridItem>> = MutableLiveData()
 
     val username: MutableLiveData<String> = MutableLiveData()
     val fruitDescription: MutableLiveData<FruitDescription> = MutableLiveData()
@@ -81,7 +82,6 @@ class FirestoreViewModel @Inject constructor(
             if (it.isSuccessful) {
 
                 fruitRef.downloadUrl.addOnSuccessListener { downloadUri ->
-                    imageDownloadUrl.postValue(downloadUri.toString())
                     Log.d("DownloadUri", "uploadImage: $downloadUri")
                 }
 
@@ -120,4 +120,18 @@ class FirestoreViewModel @Inject constructor(
             }
     }
 
+    fun getSellingFruitDetails(username: String) {
+        db.collection(SELLING_FRUITS_COLLECTION)
+            .whereEqualTo("username", username)
+            .get()
+            .addOnSuccessListener { documents ->
+                fruitDescriptionList.postValue(
+                    documents.toObjects(GridItem::class.java)
+                )
+            }
+            .addOnFailureListener { exception ->
+                Log.w("QueryFruitsToSell", "Error getting documents: ", exception)
+            }
+
+    }
 }
