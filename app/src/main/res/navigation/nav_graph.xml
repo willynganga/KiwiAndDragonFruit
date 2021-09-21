@@ -15,6 +15,11 @@
             app:destination="@id/farmer_login_flow"
             app:popUpTo="@id/viewPagerFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_viewPagerFragment_to_buyer_login_flow"
+            app:destination="@id/buyer_login_flow"
+            app:popUpTo="@id/viewPagerFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <navigation android:id="@+id/farmer_login_flow"
         app:startDestination="@id/signInFragment">
@@ -113,5 +118,45 @@
                 android:name="username"
                 app:argType="string" />
         </fragment>
+    </navigation>
+    <navigation android:id="@+id/buyer_login_flow"
+        app:startDestination="@id/buyerSignInFragment">
+        <fragment
+            android:id="@+id/buyerSignInFragment"
+            android:name="ke.co.willynganga.modernhorticulture.ui.fragments.buyer.BuyerSignInFragment"
+            android:label="fragment_buyer_sign_in"
+            tools:layout="@layout/fragment_buyer_sign_in" >
+            <action
+                android:id="@+id/action_buyerSignInFragment_to_buyerSignUpFragment"
+                app:destination="@id/buyerSignUpFragment"
+                app:popUpTo="@id/buyerSignInFragment"
+                app:popUpToInclusive="true" />
+            <action
+                android:id="@+id/action_buyerSignInFragment_to_buyerHomeFragment"
+                app:destination="@id/buyerHomeFragment"
+                app:popUpTo="@id/buyerSignInFragment"
+                app:popUpToInclusive="true" />
+        </fragment>
+        <fragment
+            android:id="@+id/buyerSignUpFragment"
+            android:name="ke.co.willynganga.modernhorticulture.ui.fragments.buyer.BuyerSignUpFragment"
+            android:label="fragment_buyer_sign_up"
+            tools:layout="@layout/fragment_buyer_sign_up" >
+            <action
+                android:id="@+id/action_buyerSignUpFragment_to_buyerSignInFragment"
+                app:destination="@id/buyerSignInFragment"
+                app:popUpTo="@id/buyerSignUpFragment"
+                app:popUpToInclusive="true" />
+            <action
+                android:id="@+id/action_buyerSignUpFragment_to_buyerHomeFragment"
+                app:destination="@id/buyerHomeFragment"
+                app:popUpTo="@id/buyerSignUpFragment"
+                app:popUpToInclusive="true" />
+        </fragment>
+        <fragment
+            android:id="@+id/buyerHomeFragment"
+            android:name="ke.co.willynganga.modernhorticulture.ui.fragments.buyer.BuyerHomeFragment"
+            android:label="fragment_buyer_home"
+            tools:layout="@layout/fragment_buyer_home" />
     </navigation>
 </navigation>
