@@ -31,7 +31,7 @@ class AdvertisementsFragment : Fragment(R.layout.fragment_advertisements) {
 
     private fun setupObservers() {
         fireStoreViewModel.fruitDescriptionList.observe(viewLifecycleOwner) {
-            val gridViewAdapter = GridViewAdapter(requireContext(), it)
+            val gridViewAdapter = GridViewAdapter(requireContext(), it, fireStoreViewModel)
             binding.gridView.apply {
                 adapter = gridViewAdapter
             }
