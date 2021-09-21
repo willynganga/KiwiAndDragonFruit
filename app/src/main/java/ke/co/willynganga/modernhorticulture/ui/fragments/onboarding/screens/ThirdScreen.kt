@@ -21,6 +21,12 @@ class ThirdScreen : Fragment(R.layout.fragment_third_screen) {
             )
         }
 
+        binding.loginBuyer.setOnClickListener {
+            findNavController().navigate(
+                R.id.action_viewPagerFragment_to_buyer_login_flow
+            )
+        }
+
     }
 
 }
