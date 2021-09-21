@@ -1,6 +1,7 @@
 package ke.co.willynganga.modernhorticulture.ui.fragments.farmer
 
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.viewbinding.library.fragment.viewBinding
@@ -26,14 +27,10 @@ class HomeFragment : Fragment(R.layout.fragment_home), PopupMenu.OnMenuItemClick
 
     private val authViewModel: AuthViewModel by viewModels()
 
-    override fun onStart() {
-        super.onStart()
-        // fetch user's name
-        fireStoreViewModel.getUserName(fireStoreViewModel.currentUser.uid)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        // fetch user's name
+        fireStoreViewModel.getUserName(fireStoreViewModel.currentUser.uid)
 
         setupObservers()
         setupOnClickListeners()
@@ -68,6 +65,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), PopupMenu.OnMenuItemClick
 
     private fun setupObservers() {
         fireStoreViewModel.username.observe(viewLifecycleOwner, { name ->
+            Log.d("Username", "Observed Username: $name")
             binding.greetUser.text = "Hello $name!"
         })
     }
