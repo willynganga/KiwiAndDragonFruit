@@ -30,20 +30,26 @@ class FirestoreViewModel @Inject constructor(
 
     val currentUser = currentUser
 
+    val imageDownloadUrl: MutableLiveData<String> = MutableLiveData()
+
     val sellingDetailsUpload: MutableLiveData<String> = MutableLiveData()
     val fruitDescriptionList: MutableLiveData<List<GridItem>> = MutableLiveData()
+    val fruitAdsList: MutableLiveData<List<GridItem>> = MutableLiveData()
+
 
     val username: MutableLiveData<String> = MutableLiveData()
     val fruitDescription: MutableLiveData<FruitDescription> = MutableLiveData()
 
     fun saveUserName(uid: String, name: String) {
         val user = hashMapOf("name" to name)
+        Log.d("UserID", "saveUserName: $uid")
         db.collection(USERS_COLLECTION)
             .document(uid)
             .set(user)
     }
 
     fun getUserName(uid: String) {
+        Log.d("GetUsername", "getUserName: $uid")
         db.collection(USERS_COLLECTION).document(uid)
             .get()
             .addOnSuccessListener { snapshot ->
@@ -80,11 +86,10 @@ class FirestoreViewModel @Inject constructor(
 
         uploadTask.addOnCompleteListener {
             if (it.isSuccessful) {
-
                 fruitRef.downloadUrl.addOnSuccessListener { downloadUri ->
-                    Log.d("DownloadUri", "uploadImage: $downloadUri")
+//                    Log.d("DownloadUri", "uploadImage: $downloadUri")
+                    imageDownloadUrl.postValue(downloadUri.toString())
                 }
-
             }
         }
     }
@@ -96,7 +101,7 @@ class FirestoreViewModel @Inject constructor(
         quantity: String,
         sellingPrice: String,
         location: String,
-        imagesUrlList: MutableList<String>
+        imageUrl: String
     ) {
         val fruitSellingDetails = hashMapOf(
             "username" to username,
@@ -105,7 +110,7 @@ class FirestoreViewModel @Inject constructor(
             "quantity" to quantity,
             "sellingPrice" to sellingPrice,
             "location" to location,
-            "imagesUrlList" to imagesUrlList
+            "imageUrl" to imageUrl
         )
 
         db.collection(SELLING_FRUITS_COLLECTION).document()
@@ -126,12 +131,56 @@ class FirestoreViewModel @Inject constructor(
             .get()
             .addOnSuccessListener { documents ->
                 fruitDescriptionList.postValue(
-                    documents.toObjects(GridItem::class.java)
+                    documents.map {
+                        GridItem(
+                            it.getString("username")!!,
+                            it.getString("phoneNumber")!!,
+                            it.getString("typeOfFruit")!!,
+                            it.getString("quantity")!!,
+                            it.getString("sellingPrice")!!,
+                            it.getString("location")!!,
+                            it.getString("imageUrl")!!,
+                        )
+                    }.toList()
                 )
             }
             .addOnFailureListener { exception ->
                 Log.w("QueryFruitsToSell", "Error getting documents: ", exception)
             }
+    }
 
+    fun getFruitsAds() {
+        db.collection(SELLING_FRUITS_COLLECTION)
+            .get()
+            .addOnSuccessListener { documents ->
+                fruitAdsList.postValue(
+                    documents.map {
+                        GridItem(
+                            it.getString("username")!!,
+                            it.getString("phoneNumber")!!,
+                            it.getString("typeOfFruit")!!,
+                            it.getString("quantity")!!,
+                            it.getString("sellingPrice")!!,
+                            it.getString("location")!!,
+                            it.getString("imageUrl")!!
+                        )
+                    }.toList()
+                )
+            }
+            .addOnFailureListener { exception ->
+                Log.w("QueryFruitsAds", "Error getting documents: ", exception)
+            }
+    }
+
+    fun getImageDownloadLink(lastPathSegment: String) {
+        val fruitRef = storageRef.child("images/$lastPathSegment")
+
+        fruitRef.downloadUrl.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                imageDownloadUrl.postValue(task.result.toString())
+            }
+        }.addOnFailureListener {
+            Log.d("DownloadUrl", "getImageDownloadLink: cannot get download url at the moment!")
+        }
     }
 }
