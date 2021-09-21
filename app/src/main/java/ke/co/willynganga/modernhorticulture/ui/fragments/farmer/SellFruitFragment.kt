@@ -27,7 +27,6 @@ class SellFruitFragment : Fragment(R.layout.fragment_sell_fruit) {
     private val binding: FragmentSellFruitBinding by viewBinding()
 
     private val imagesList: MutableList<Uri> = mutableListOf()
-    private val imagesUrlList: MutableList<String> = mutableListOf()
 
     private val firestoreViewModel: FirestoreViewModel by viewModels()
 
@@ -58,7 +57,6 @@ class SellFruitFragment : Fragment(R.layout.fragment_sell_fruit) {
         val intent = Intent()
 
         intent.type = "image/*"
-        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
         intent.action = Intent.ACTION_GET_CONTENT
 
         resultLauncher.launch(intent)
@@ -89,18 +87,15 @@ class SellFruitFragment : Fragment(R.layout.fragment_sell_fruit) {
 
         binding.progressCircular.visibility = View.VISIBLE
 
-        uploadImagesToFirestore()
+        uploadImageToFirestore()
         lifecycleScope.launch {
             delay(3000L)
             uploadSellingFruitDetails(phoneNumber, typeOfFruit, quantity, sellingPrice, location)
         }
     }
 
-    private fun uploadImagesToFirestore() {
-        for (i in imagesList.indices) {
-            firestoreViewModel.uploadImage(imagesList[i])
-            imagesUrlList.add(i, imagesList[i].lastPathSegment!!)
-        }
+    private fun uploadImageToFirestore() {
+        firestoreViewModel.uploadImage(imagesList[0])
     }
 
     private fun uploadSellingFruitDetails(
@@ -110,9 +105,10 @@ class SellFruitFragment : Fragment(R.layout.fragment_sell_fruit) {
         sellingPrice: String,
         location: String
     ) {
-        firestoreViewModel.uploadSellingFruitDetails(
-            args.username, phoneNumber, typeOfFruit, quantity, sellingPrice, location, imagesUrlList
-        )
+        firestoreViewModel.imageDownloadUrl.observe(viewLifecycleOwner) {
+            firestoreViewModel.uploadSellingFruitDetails(
+                args.username, phoneNumber, typeOfFruit, quantity, sellingPrice, location, it)
+        }
 
         observeUploadTask()
     }
@@ -137,22 +133,13 @@ class SellFruitFragment : Fragment(R.layout.fragment_sell_fruit) {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 result?.data?.let { intent ->
-                    if (intent.clipData == null) { // one image is selected
-                        imagesList.clear()
-                        imagesList.add(0, intent.data!!)
-                    } else { // more than one image is selected
-                        intent.clipData?.let { clipData ->
-                            for (i in 0..clipData.itemCount) {
-                                imagesList.clear()
-                                imagesList.add(i, clipData.getItemAt(i).uri)
-                            }
-                        }
-                    }
+                    imagesList.clear()
+                    imagesList.add(0, intent.data!!)
                 }
             } else {
                 Toast.makeText(
                     requireContext(),
-                    "Please select at least one image!",
+                    "Please select an image!",
                     Toast.LENGTH_SHORT
                 ).show()
             }
