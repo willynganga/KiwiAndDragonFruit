@@ -22,12 +22,13 @@
             android:scaleType="centerCrop"
             android:src="@drawable/banner_img" />
 
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="-70dp"
             android:padding="10dp"
-            android:text="Let's grow together."
+            android:text="@string/let_s_grow_together"
             android:textColor="@color/white"
             android:textSize="28sp"
             android:textStyle="bold" />
@@ -36,57 +37,71 @@
             android:id="@+id/greetUser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="-90dp"
             android:padding="10dp"
-            android:textSize="24sp"
             android:textColor="@color/white"
-            android:layout_marginTop="-90dp"/>
+            android:textSize="24sp" />
 
+        <ImageView
+            android:id="@+id/menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="-135dp"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/ic_more"
+            app:tint="@color/white"
+            android:contentDescription="@string/more_items_icon" />
     </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:fillViewport="true"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:fillViewport="true"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/category_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:padding="10dp"
-                android:text="Category"
+                android:text="@string/category"
                 android:textColor="@color/green_200"
                 android:textSize="24sp"
-                android:layout_marginStart="16dp"
                 android:textStyle="bold" />
 
-            <include android:id="@+id/dragonFruit"
+            <include
+                android:id="@+id/dragonFruit"
                 layout="@layout/dragon_fruit_card" />
 
-            <include android:id="@+id/kiwiFruit"
+            <include
+                android:id="@+id/kiwiFruit"
                 layout="@layout/kiwi_fruit_card" />
 
             <TextView
                 android:id="@+id/sell_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:padding="10dp"
-                android:text="Sell"
+                android:text="@string/sell"
                 android:textColor="@color/green_200"
                 android:textSize="24sp"
-                android:layout_marginStart="16dp"
                 android:textStyle="bold" />
 
-            <include layout="@layout/sell_fruits_card" />
+            <include
+                android:id="@+id/sell_fruits_card"
+                layout="@layout/sell_fruits_card" />
 
 
         </LinearLayout>

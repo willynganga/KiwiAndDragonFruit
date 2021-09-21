@@ -108,6 +108,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
                 app:layout_constraintEnd_toEndOf="@+id/how_to_plant"
                 app:layout_constraintStart_toStartOf="@+id/how_to_plant"
                 app:layout_constraintTop_toBottomOf="@+id/how_to_plant" />
