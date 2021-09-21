@@ -7,12 +7,15 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
+import coil.load
 import ke.co.willynganga.modernhorticulture.R
 import ke.co.willynganga.modernhorticulture.model.GridItem
+import ke.co.willynganga.modernhorticulture.viewmodel.FirestoreViewModel
 
 class GridViewAdapter(
     private val context: Context,
-    private val list: List<GridItem>
+    private val list: List<GridItem>,
+    private val firestoreViewModel: FirestoreViewModel
 ) : BaseAdapter() {
 
     override fun getCount(): Int {
@@ -40,6 +43,7 @@ class GridViewAdapter(
         val quantity = gridItemView?.findViewById<TextView>(R.id.quantity_of_fruits)
         val location = gridItemView?.findViewById<TextView>(R.id.location_of_fruit)
 
+        image?.load(list[position].imageUrl)
         fruitName?.text = list[position].typeOfFruit
         quantity?.text = list[position].quantity
         location?.text = list[position].location
